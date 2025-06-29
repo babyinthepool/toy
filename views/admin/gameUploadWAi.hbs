@@ -46,6 +46,8 @@
   <h4>Linklər 
     <input type="number" class="form-control d-inline-block w-25 me-2" id="steamId" name="steamId" placeholder="Steam ID-ni daxil edin" aria-label="steamId">
  <button class="btn btn-primary" type="button" id="ai-fill-links-button">Linkləri Doldur</button></h4>
+    <span><a target="_blank" id="steamIdSearch">steamdb.info</a></span>
+ 
 </div>
       <div class="col-lg-6 col-12">
     <label for="cover" class="col col-form-label text-info fw-bold">Poster:</label>
@@ -65,16 +67,20 @@
   <div class="col-lg-4 col-6">
             <label for="linkTorrent" class="col col-form-label text-info fw-bold">Torrent Linki:</label>
     <input class="form-control" id="linkTorrent" name="linkTorrent" type="text" placeholder="Torrent üçün yükləmə linki" aria-label="linkTorrent">
+    <span><a target="_blank" id="torrentLinkPB">thepiratebay.party</a></span> <br>
+    
     <br>
     <span class="text-muted" id="torrentname" aria-label="torrentname" ></span>
   </div>
   <div class="col-lg-4 col-6">
             <label for="linkDirect" class="col col-form-label text-info fw-bold">Birbaşa yükləmək linki:</label>
     <input class="form-control" id="linkDirect" name="linkDirect" type="text" aria-label="linkDirect">
-    <span><a target="_blank" id="directLinkGload">gload.to</a></span> <br>
-
+    <span><a target="_blank" id="directLinkGamesForYou">games4u.com</a></span> <br>
     <span><a target="_blank" id="directLinkAtopgames">atopgames.com</a></span> <br>
-    <span><a target="_blank" id="directLinkGamesForYou">games4u.com</a></span>
+
+    <span><a target="_blank" id="directLinkGload">gamepcfull.com</a></span> <br>
+    <span><a target="_blank" id="directLinkLab">repacklab.com</a></span> <br>
+
 
   </div>  <div class="col-lg-4 col-6">
                 <label for="linkDirectAlternative" class="col col-form-label text-info fw-bold">Birbaşa yükləmək linki(Alt):</label>
@@ -129,7 +135,7 @@
             const gloadLink = document.getElementById('directLinkGload');
             if (gloadLink && nameValue) {
                 const search = encodeURIComponent(nameValue.replace(/\s+/g, '+'));
-                gloadLink.href = `https://gload.to/?s=${search}`;
+                gloadLink.href = `https://gamepcfull.com/?s=${nameValue.replace(' ', "+")}`;
             }
 
             if (nameValue) {
@@ -143,16 +149,40 @@
 
             const atopgamesLink = document.getElementById('directLinkAtopgames');
             if (atopgamesLink && nameValue) {
-                const search = encodeURIComponent(nameValue.replace(/\s+/g, '+'));
+                const search = encodeURIComponent(nameValue);
                 atopgamesLink.href = `https://atopgames.com/?s=${search}`;
+            }
+
+            
+            const gamesForYouLink = document.getElementById('directLinkGamesForYou');
+            if (gamesForYouLink && nameValue) {
+                const search = encodeURIComponent(nameValue);
+                gamesForYouLink.href = `https://games4u.org/?s=${search}`;
+            }
+
+            
+            const repackLabLink = document.getElementById('directLinkLab');
+            if (gamesForYouLink && nameValue) {
+                const search = encodeURIComponent(nameValue);
+                repackLabLink.href = `https://repacklab.com/?s=${search}&post_type=post`;
+            }
+
+                        const torrentLinkPB = document.getElementById('torrentLinkPB');
+            if (torrentLinkPB && nameValue) {
+                const search = encodeURIComponent(nameValue);
+                torrentLinkPB.href = `https://thepiratebay.party/search/${search}/1/99/400`;
+            }
+
+                                    const steamIdSearch = document.getElementById('steamIdSearch');
+            if (steamIdSearch && nameValue) {
+                const search = encodeURIComponent(nameValue);
+                steamIdSearch.href = `https://steamdb.info/search/?a=all&q=${search}`;
             }
             }
 
-            const gamesForYouLink = document.getElementById('directLinkGamesForYou');
-            if (gamesForYouLink && nameValue) {
-                const search = encodeURIComponent(nameValue.replace(/\s+/g, '+'));
-                gamesForYouLink.href = `https://games4u.org/?s=${search}`;
-            }
+
+            
+
         } catch (err) {
             console.error('AppID fetch error:', err);
         }
