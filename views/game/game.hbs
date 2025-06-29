@@ -1,0 +1,524 @@
+<div class="row">
+
+
+
+  <div class="col-12 col-lg-9">
+      <div class="card text-white bg-dark mb-3 border-primary">
+      <div style="height: 50px" class="card-header border-primary lexend-deca-title fw-bold">
+        
+
+
+        <div class="position-relative">
+  <div class="position-absolute top-0 start-0">
+    <h1 style="font-size:18px" class="lexend-deca-title fw-bold">
+
+
+        {{#unless user}}
+        <button class="btn p-0" style="background: none; border: none; box-shadow: none !important; outline: none !important;" aria-label="Bookmark" disabled>
+          <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="#ccc" viewBox="0 0 16 16">
+            <path d="M2 2v12l6-4 6 4V2a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2z"/>
+          </svg>
+        </button>
+        {{else}}
+        {{#if game.bookmarked}}
+              <button id="bookmarkBtn" class="btn p-0" style="background: none; border: none; box-shadow: none !important; outline: none !important;" aria-label="Bookmark" onfocus="this.blur()">
+                <svg id="bookmarkIcon" xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="#ffc107" viewBox="0 0 16 16">
+                  <path id="bookmarkPath" d="M2 2v12l6-4 6 4V2a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2z"/>
+                </svg>
+              </button>
+            <script>
+        let isBookmarked = true;
+        </script>
+{{else}}
+      <button id="bookmarkBtn" class="btn p-0" style="background: none; border: none; box-shadow: none !important; outline: none !important;" aria-label="Bookmark" onfocus="this.blur()">
+        <svg id="bookmarkIcon" xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="none" viewBox="0 0 16 16">
+          <path id="bookmarkPath" fill="#fff" d="M2 2v12l6-4 6 4V2a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2z"/>
+        </svg>
+      </button>
+            <script>
+        let isBookmarked = false;
+        </script>
+
+{{/if}}
+
+        {{/unless}}
+
+
+      <script>
+        const btn = document.getElementById('bookmarkBtn');
+        const path = document.getElementById('bookmarkPath');
+
+        btn.addEventListener('mouseenter', () => {
+          if (!isBookmarked) path.setAttribute('fill', '#ffc107');
+        });
+        btn.addEventListener('mouseleave', () => {
+          if (!isBookmarked) path.setAttribute('fill', '#fff');
+        });
+
+        btn.addEventListener('mousedown', e => e.preventDefault()); // Prevents blue highlight on click
+
+bookmarkBtn.addEventListener('click', e => {
+
+          isBookmarked = !isBookmarked;
+          path.setAttribute('fill', isBookmarked ? '#ffc107' : '#fff');
+          // Add your bookmark logic here
+ e.preventDefault();
+
+       fetch("/{{game.urlTitle}}/bookmark", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ user: "{{user.username}}" })
+      })
+      .then(data => {
+        return
+      })
+      .catch(error => {
+        console.error("Xəta:", error);
+      });
+          
+})
+        
+      </script>
+      <style>
+        #bookmarkBtn:focus, #bookmarkBtn:active {
+          box-shadow: none !important;
+          outline: none !important;
+        }
+      </style>
+    {{game.name}} Yüklə</h1></div>
+  <div class="position-absolute top-0 end-0"><a class="no-underline text-white go-red" href="/">Əsas</a> <span aria-hidden="true">&raquo;</span><span class="no-underline text-white" href="/{{game._id}}"> Oyun</span></div>
+
+</div>
+        
+        </div>
+      <div class="card-body">
+
+
+
+
+<div class="row">
+<div class="col-lg-3 col-12">
+
+<div class="card text-white bg-warning">
+  <img class="card-img-top" src="{{game.cover}}" alt="{{game.name}}">
+
+</div>
+
+
+
+</div>
+<div class="col-lg-9 col-12">
+  <div class="card text-white bg-warning">
+<div class="card-body">
+  <section>
+
+ {{{formatText game.summary}}}
+<br>
+<br>
+     
+     {{#unless game.uploader}}
+     <a class="text-decoration-none" href="/istifadeci/goruntule/pakog">
+    <img src="https://i.imgur.com/0Cm3nJq.gif" alt="pakog" style="width: 32px; height: 32px; object-fit: cover; border-radius: 50%; vertical-align: middle; margin-right: 8px;">
+     pakog </a><span style="background-color: brown;" class="badge text-bg-warning">Admin</span> 
+     {{else}}
+     <a class="text-decoration-none" href="/istifadeci/goruntule/{{game.uploader.username}}">
+    <img src="{{game.uploader.pp}}" alt="{{game.uploader.username}}" style="width: 32px; height: 32px; object-fit: cover; border-radius: 50%; vertical-align: middle; margin-right: 8px;">
+
+     {{game.uploader.username}} </a><span style="background-color: brown;" class="badge text-bg-warning">Admin</span> 
+
+
+     {{/unless}} <span class="text-muted">tərəfindən yüklənmişdir.</span>
+
+</section>
+</div>
+</div>
+<p>
+<div class="d-flex justify-content-center">
+
+
+{{#if game.linkTorrent}}
+
+<a href="{{game.linkTorrent}}" target="_blank" rel="noreferrer nofollow" type="button" class="btn btn-success">Torrent Yüklə</a>  
+
+{{/if}}
+
+
+{{#if game.linkDirect}}
+<a href="{{game.linkDirect}}" target="_blank"  rel="noreferrer nofollow" type="button" style="margin-left: 15px;" style="padding-right: 12px;padding-left: 12px" class="btn btn-primary"><i class="bi bi-download"> </i>Birbaşa Yüklə</a>
+
+{{/if}}
+
+{{#if game.linkDirectAlternative}}
+<a href="{{game.linkDirectAlternative}}" target="_blank"  rel="noreferrer nofollow" style="margin-left: 15px;" type="button" class="btn btn-primary" ><i class="bi bi-download"> </i>Birbaşa Yüklə (Alt)</a>
+{{/if}}
+</div>
+
+<p style="text-align: center;" class="lower">
+  {{#unless user}}
+
+  <span id="star-rating" style="pointer-events: none; opacity: 0.5;">
+    <i class="bi bi-star star" style="font-size: 2rem; color: #ffc107;" data-value="1" aria-label="1 ulduz"></i>
+    <i class="bi bi-star star" style="font-size: 2rem; color: #ffc107;" data-value="2" aria-label="2 ulduz"></i>
+    <i class="bi bi-star star" style="font-size: 2rem; color: #ffc107;" data-value="3" aria-label="3 ulduz"></i>
+    <i class="bi bi-star star" style="font-size: 2rem; color: #ffc107;" data-value="4" aria-label="4 ulduz"></i>
+    <i class="bi bi-star star" style="font-size: 2rem; color: #ffc107;" data-value="5" aria-label="5 ulduz"></i>
+  </span>
+  Dəyərləndirmə etmək üçün <a href="/login">daxil olun</a> və ya <a href="/register" >qeydiyyatdan keçin</a>. <br>
+
+
+  {{else}}
+  <span id="star-rating">
+
+    <i class="bi bi-star star" style="font-size: 2rem; color: #ffc107; cursor: pointer;" data-value="1" aria-label="1 ulduz"></i>
+    <i class="bi bi-star star" style="font-size: 2rem; color: #ffc107; cursor: pointer;" data-value="2" aria-label="2 ulduz"></i>
+    <i class="bi bi-star star" style="font-size: 2rem; color: #ffc107; cursor: pointer;" data-value="3" aria-label="3 ulduz"></i>
+    <i class="bi bi-star star" style="font-size: 2rem; color: #ffc107; cursor: pointer;" data-value="4" aria-label="4 ulduz"></i>
+    <i class="bi bi-star star" style="font-size: 2rem; color: #ffc107; cursor: pointer;" data-value="5" aria-label="5 ulduz"></i>
+  </span>
+  {{/unless}}
+
+
+
+  <span class="text-muted">Oyun qiymətləndirməsi: <span id="avarage-rating">{{#if game.averageRating}}{{game.averageRating  }}{{else}}0 (Yoxdur){{/if}}</span></span>
+</p>
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const stars = document.querySelectorAll('#star-rating .star');
+    let currentRating = Number('{{game.rating}}') || 0;
+
+    function updateStars(rating) {
+      stars.forEach((star, idx) => {
+        if (idx < rating) {
+          star.classList.add('bi-star-fill');
+          star.classList.remove('bi-star');
+        } else {
+          star.classList.add('bi-star');
+          star.classList.remove('bi-star-fill');
+        }
+      });
+    }
+
+    stars.forEach((star, idx) => {
+      star.addEventListener('mouseenter', () => updateStars(idx + 1));
+      star.addEventListener('mouseleave', () => updateStars(currentRating));
+      star.addEventListener('click', () => {
+        currentRating = idx + 1;
+        updateStars(currentRating);
+        // TODO: Send value to server or handle rating logic
+      });
+    });
+
+    updateStars(currentRating);
+    stars.forEach((star, idx) => {
+      star.addEventListener('click', () => {
+      const ratingValue = idx + 1;
+      fetch(`/{{game.urlTitle}}/rating/${ratingValue}`, {
+        method: 'GET',
+        credentials: 'same-origin'
+      })
+      .then(response => {
+        // Optionally handle response
+      })
+      .catch(error => {
+        console.error('Rating error:', error);
+      });
+      });
+    });
+
+  });
+
+
+
+</script>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const stars = document.querySelectorAll('#star-rating .star');
+    let currentRating = Number('{{game.rating}}') || 0;
+    const userRating = Number('{{game.userRating}}') || 0;
+
+    function updateStars(rating) {
+      stars.forEach((star, idx) => {
+        if (idx < rating) {
+          star.classList.add('bi-star-fill');
+          star.classList.remove('bi-star');
+        } else {
+          star.classList.add('bi-star');
+          star.classList.remove('bi-star-fill');
+        }
+      });
+    }
+
+    // If userRating exists, use it to fill stars, else use currentRating
+    if (userRating > 0) {
+      updateStars(userRating);
+      document.getElementById('current-rating').textContent = userRating;
+      currentRating = userRating;
+    } else {
+      updateStars(currentRating);
+    }
+
+    stars.forEach((star, idx) => {
+      star.addEventListener('mouseenter', () => updateStars(idx + 1));
+      star.addEventListener('mouseleave', () => updateStars(currentRating));
+      star.addEventListener('click', () => {
+        currentRating = idx + 1;
+        updateStars(currentRating);
+        // TODO: Send value to server or handle rating logic
+        fetch(`/{{game.urlTitle}}/rating/${currentRating}`, {
+          method: 'GET',
+          credentials: 'same-origin'
+        })
+        .catch(error => {
+          console.error('Rating error:', error);
+        });
+      });
+    });
+  });
+</script>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+
+</p>
+</p>
+
+
+
+</div>
+
+{{#if game.upgrades}}
+
+<div class="col-12 lower">
+
+  <div class="card text-white bg-warning">
+  <div class="card-header border-primary lexend-deca-title fw-bold">Güncəlləmələr - <i>Yükləmək üçün güncəlləmə adına basın.</i></div>
+<div class="card-body">
+
+{{#each game.upgrades}}
+
+  <a class="fw-bold text-decoration-none hover-underline" style="text-decoration: underline;" href="{{this.link}}" style="color: #C0C0C0;" >{{this.title}}</a> {{this.summary}} <br>
+  {{#unless @last}}
+    {{#if (gt ../game.upgrades.length 1)}}
+      <hr>
+    {{/if}}
+  {{/unless}}
+{{/each}}
+
+</div>
+
+
+</div>
+
+</div>
+{{/if}}
+
+
+
+
+<div class="col-lg-6 col-12 lower" >
+
+  <div class="card text-white bg-warning">
+  <div style="height: 35px" class="card-header border-primary lexend-deca-title fw-bold">Oyun Haqqında</div>
+
+<div class="card-body">
+  <span class="text-info fw-bold">Çıxış Tarixi: </span>{{game.gameOutDate}} <br>
+  <span class="text-info fw-bold">Yaddaş: </span>{{game.size}} GB<br> 
+  <span class="text-info fw-bold">Kateqoriya: </span>
+{{#each game.category}}
+<a class="no-underline go-red target-text" style="color:white" href="/kateqoriya/{{this}}">{{this}}</a>{{#unless @last}}, {{/unless}} 
+
+{{/each}}
+<br>
+
+  <span class="text-info fw-bold">Görüntülənmə: </span>{{game.views}} <i class="bi bi-eye"></i>
+
+
+<br>
+  <span class="text-info fw-bold">Son yenilənmə: </span> <span class="target-date">{{game.uploadDate}}</span>
+</div>
+</div>
+
+
+
+
+
+</div>
+
+
+
+
+<div class="col-lg-6 col-12 lower">
+    <div class="card text-white bg-warning">
+  <div style="height: 35px" class="card-header border-primary lexend-deca-title fw-bold">Sistem Gereksinimleri</div>
+
+<div class="card-body">
+<span>
+{{{formatText game.system}}}
+</span>
+</div>
+</div>
+
+
+</div>
+<div class="col-lg-12 col-12 lower">
+  <h3 class="lexend-deca-title fw-bold">Şəkillər</h3>
+
+<div id="gameplayImages"  data-bs-interval="false" class="carousel slide" data-bs-ride="carousel">
+  <div class="carousel-indicators">
+
+    {{#each game.images}}
+
+        <button type="button" data-bs-target="#gameplayImages" data-bs-slide-to="{{@index}}" 
+  {{#if @first}}active  class="active" aria-current="true" {{/if}}
+    aria-label="Slide {{@index}}"></button>
+    {{/each}}
+
+
+  </div>
+  <div class="carousel-inner">
+    {{#each game.images}}
+
+    <div class="carousel-item {{#if @first}}active{{/if}}">
+      <img src="{{this}}" class="d-block w-100 fixed-carousel-img" alt="{{game.name}} gameplay şəkillər oynanış">
+    </div>
+    {{/each}}
+
+  </div>
+  <button class="carousel-control-prev" type="button" data-bs-target="#gameplayImages" data-bs-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Geri</span>
+  </button>
+  <button class="carousel-control-next" type="button" data-bs-target="#gameplayImages" data-bs-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">İrəli</span>
+  </button>
+</div>
+
+
+
+</div>
+
+
+
+
+<div class="col-lg-12 col-12 lower">
+  <h3 class="lexend-deca-title fw-bold">Oynanış Videosu </h3>
+
+<div class="ratio ratio-16x9">
+<lite-youtube videoid="{{game.gameplayEmbed}}"></lite-youtube>
+
+</div>
+</div>
+<div class="col-12 lower">
+  <div id="disqus_thread"></div>
+<script>
+    /**
+    *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+    *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables    */
+    var disqus_config = function () {
+    this.page.url = "https://torrentoyunyukle.xyz/{{game.urlTitle}}";  // Replace PAGE_URL with your page's canonical URL variable
+    this.page.identifier = "{{game._id}}"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+    };
+    (function() { // DON'T EDIT BELOW THIS LINE
+    var d = document, s = d.createElement('script');
+    s.src = 'https://azerbaijan.disqus.com/embed.js';
+    s.setAttribute('data-timestamp', +new Date());
+    (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+
+
+  
+</div>
+
+
+
+
+
+
+        </div>
+        
+    </div>
+    </div>
+  <div class="col-lg-3">
+    
+    <div class="row">
+      
+      <div class="col-lg-12">
+  {{>discord}}
+</div>
+      <div class="col-lg-12">
+  {{>oyunIstek}}
+</div>
+<div class="col-lg-12">
+  {{>categories}}
+</div>
+
+    </div>
+
+ 
+</div>
+</div>
+
+
+
+<style>
+  .lower{
+    margin-top: 15px;
+  }
+</style>
+
+
+
+    <script>
+        // Değişim sözlüğü
+        const replacements = {
+            "populyar": "Populyar",
+            "aciq-dunya": "Açıq Dünya",
+            "aksiyon": "Aksiyon",
+            "macera": "Macəra",
+            "fps": "FPS",
+            "sag-qalma": "Sağ Qalma",
+            "idman  ": "İdman",
+            "yaris": "Yarış",
+            "strategiya": "Strategiya",
+            "simulasiya": "Simulasiya",
+            "doyus": "Döyüş",
+            "qorxu": "Qorxu",
+            "platform": "Platform",
+            "erken-giris": "Erkən Giriş",
+            "vr": "VR",
+            "rpg": "RPG",
+            "dlc": "DLC"
+        };
+
+        // Tüm hedef metinleri seç
+        document.querySelectorAll('.target-text').forEach(el => {
+            let text = el.textContent;
+            // Her bir kelimeyi kontrol edip değiştir
+            for (let [key, value] of Object.entries(replacements)) {
+                const regex = new RegExp(`\\b${key}\\b`, 'gi'); // Tam kelime eşleşmesi için
+                text = text.replace(regex, value);
+            }
+            el.textContent = text;
+        });
+    </script>
+
+<style>
+.fixed-carousel-img {
+  width: 100%;        
+  height: 520px;        
+  object-fit: cover;     
+}
+@media (max-width: 768px) {
+  .fixed-carousel-img {
+    height: 190px;
+  }
+}
+</style>
+
+<script type="module" src="https://cdn.jsdelivr.net/npm/@justinribeiro/lite-youtube@1/lite-youtube.min.js"></script>

@@ -1,0 +1,165 @@
+<div class="row gy-2">
+
+  <div class="col-12 col-lg-9">
+
+    <div class="card text-white bg-dark mb-3 border-primary">
+      <div class="card-header border-primary lexend-deca-title fw-bold"> 
+      <h1 style="font-size:18px" class="lexend-deca-title fw-bold"> {{#if category}}<span class="target-text">{{category}}</span> - {{else}}ƏN YENİ OYUNLAR - {{/if}}Torrent Oyun indir, Full Oyun, Oyun Yukle, Tek Link Oyun, Demo Oyun</div></h1>
+      <div class="card-body">
+
+        <div class="row gy-3">
+
+{{#if games.length}}
+
+
+
+
+{{#each games}}
+
+
+          <div class="col-6 col-lg-3">
+
+
+
+
+            <div
+              class="card border-secondary text-center bg-warning lato-regular"
+            >
+            <a href="/{{urlTitle}}">
+              <img
+              
+                src="{{cover}}"
+                class="card-img-top game-cover"
+                alt="{{name}},{{category}}"
+                width="270px"
+                height="280px"
+              />
+              </a>
+               <div class="gameTitle">{{name}}</div>
+            </div>
+          </div>
+
+{{/each}}
+
+
+
+
+
+{{else}}
+
+
+
+<div class="alert alert-danger" style="background-color: rgb(135, 35, 65);" role="alert">
+  <i class="bi bi-x"></i> Axtarışınıza uyğun oyun yoxdur.
+</div>
+
+{{/if}}
+
+
+
+
+
+        </div>
+
+      </div>
+    </div>
+
+
+{{#if currentPage}}
+
+<nav aria-label="pagination">
+  <ul class="pagination justify-content-center">
+    {{#if hasPrevPage}}
+      <li class="page-item"><a
+          class="page-link"
+          href="/?page={{prevPage}}"
+        ><span aria-hidden="true">&laquo;</span></a></li>
+    {{/if}}
+
+    <li class="page-item"><a class="page-link" style="background:rgb(225, 117, 100);color:white"><span class="fw-bold">{{currentPage}}</span>
+        /
+        {{totalPages}}</a></li>
+    {{#if hasNextPage}}
+      <li class="page-item"><a
+          class="page-link"
+          href="/?page={{nextPage}}"
+        ><span aria-hidden="true">&raquo;</span></a></li>
+    {{/if}}
+
+  </ul>
+</nav>
+{{/if}}
+
+
+  </div>
+  <div class="col-lg-3">
+    
+    <div class="row">
+      <div class="col-lg-12">
+  {{>discord}}
+</div>
+      <div class="col-lg-12">
+  {{>oyunIstek}}
+</div>
+<div class="col-lg-12">
+  {{>categories}}
+</div>
+
+
+
+    </div>
+
+</div>
+
+
+
+    <script>
+        // Değişim sözlüğü
+        const replacements = {
+            "populyar": "Populyar",
+            "aciq-dunya": "Açıq Dünya",
+            "aksiyon": "Aksiyon",
+            "macera": "Macəra",
+            "fps": "FPS",
+            "sag-qalma": "Sağ Qalma",
+            "idman  ": "İdman",
+            "yaris": "Yarış",
+            "strategiya": "Strategiya",
+            "simulasiya": "Simulasiya",
+            "doyus": "Döyüş",
+            "qorxu": "Qorxu",
+            "platform": "Platform",
+            "erken-giris": "Erkən Giriş",
+            "vr": "VR",
+            "rpg": "RPG",
+            "dlc": "DLC"
+        };
+
+        // Tüm hedef metinleri seç
+        document.querySelectorAll('.target-text').forEach(el => {
+            let text = el.textContent;
+            // Her bir kelimeyi kontrol edip değiştir
+            for (let [key, value] of Object.entries(replacements)) {
+                const regex = new RegExp(`\\b${key}\\b`, 'gi'); // Tam kelime eşleşmesi için
+                text = text.replace(regex, value);
+            }
+            el.textContent = text;
+        });
+
+
+    </script>
+    <script>
+        document.querySelectorAll('.gameTitle').forEach(el => {
+            if (el.textContent.length > 23) {
+                el.textContent = el.textContent.slice(0, 23) + '...';
+            }
+        });
+    </script>
+
+    
+
+<style>
+
+</style>
+
+

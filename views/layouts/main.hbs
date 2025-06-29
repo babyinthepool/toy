@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="../../css/main.css">
+<link rel="icon" href="/favicon.ico" type="image/x-icon">
+{{#if game.cover}}
+    <meta property="og:image" content="{{game.cover}}">
+    <meta name="twitter:image" content="{{game.cover}}" />
+{{/if}}
+{{#if game.name}}
+    <title>{{game.name}} Yüklə Pulsuz — Torrent Oyun Yüklə</title>
+<meta name="keywords" content="{{game.name}}, torrent oyun, torrent oyun yüklə, {{game.name}} torrent, {{game.name}} yüklə, {{game.name}} oyun, {{game.name}} oyun yüklə, {{game.name}} torrent yüklə{{#each game.category}}, {{this}}{{/each}}">
+
+
+
+{{else if category}}
+    <title>{{category}} — Torrent Oyun Yüklə</title>
+{{else}}
+    <title>Torrent Oyun Yüklə</title>
+
+{{/if}}
+
+<meta name="description" content="{{#if seoDescription}}{{seoDescription}}{{else}}Torrent oyun yükləmək istəyirsiniz? Onda doğru ünvandasınız! Biz sizə PC, PlayStation, Xbox və mobil cihazlar üçün ən yeni və məşhur oyunların təhlükəsiz torrent fayllarını təqdim edirik. Həm klassik oyunlar, həm də son dövrün ən çox oynanan AAA layihələri burada – tam pulsuz, reklamsız və yüksək sürətlə yüklənə bilən formatda!{{/if}}">
+
+<!-- Yandex.Metrika counter -->
+<script type="text/javascript" >
+   (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+   m[i].l=1*new Date();
+   for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
+   k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})
+   (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
+
+   ym(102633318, "init", {
+        clickmap:true,
+        trackLinks:true,
+        accurateTrackBounce:true
+   });
+</script>
+<noscript><div><img src="https://mc.yandex.ru/watch/102633318" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+<!-- /Yandex.Metrika counter -->
+
+  </head>
+ 
+  <body class="bg-warning text-white">
+     {{> header}}
+      
+     <div class="container">
+  {{{body}}}
+
+     </div>
+ {{> footer}}
+    
+  
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+
+  </body>
+</html>
+
+{{#if category}}
+<script>
+
+function replaceTitleKeywords(title) {
+    for (const [key, value] of Object.entries(replacements)) {
+        // Create a global, case-insensitive regex for each key
+        const regex = new RegExp(key.trim(), "gi");
+        title = title.replace(regex, value);
+    }
+    return title;
+}
+
+// Sayfa başlığını güncelle
+document.title = replaceTitleKeywords(document.title);
+</script>
+
+{{/if}}

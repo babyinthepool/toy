@@ -1,0 +1,60 @@
+<nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+  <ul class="navbar-nav">
+    <li class="nav-item">
+      <a class="nav-link" href="/istifadeci/profil"><i class="bi bi-person-circle"></i> Profil Seçimləri</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="/istifadeci/yadda-saxlanilan-oyunlar"><i class="bi bi-bookmarks"></i> Yadda Saxlanılan Oyunlar</a>
+    </li>
+    <li class="nav-item">
+            <a class="nav-link active" href="/istifadeci/deyerlendirmeler"><i class="bi bi-star-fill star" style="font-size: 1rem; cursor: pointer;"></i> Dəyərləndirmələr</a>
+
+    </li>
+  </ul>
+</nav>
+
+<div class="row">
+{{#each ratings}}
+    <div class="col-12 col-lg-2">
+
+  <div class="rating">
+    <h3><a href="/{{this.gameUrl}}">{{this.gameUrl}}</a></h3>
+    <p>Dəyərləndirmə: 
+    <i class="bi bi-star-fill star" style="font-size: 1rem; color: #ffc107; cursor: pointer;" data-value="2" aria-label="2 ulduz"></i>
+        
+        {{this.rating}}/5</p>
+    <p>Tarix: {{this.dateAdded}}</p>
+  </div>
+    </div>
+
+{{else}}
+  <p>No ratings available.</p>
+{{/each}}
+</div>
+
+
+
+{{#if currentPage}}
+
+<nav style="margin-top:10px" aria-label="pagination">
+  <ul class="pagination justify-content-center">
+    {{#if hasPrevPage}}
+      <li class="page-item"><a
+          class="page-link"
+          href="/istifadeci/deyerlendirmeler?page={{prevPage}}"
+        ><span aria-hidden="true">&laquo;</span></a></li>
+    {{/if}}
+
+    <li class="page-item"><a class="page-link" style="background:rgb(225, 117, 100);color:white"><span class="fw-bold">{{currentPage}}</span>
+        /
+        {{totalPages}}</a></li>
+    {{#if hasNextPage}}
+      <li class="page-item"><a
+          class="page-link"
+          href="/istifadeci/deyerlendirmeler?page={{nextPage}}"
+        ><span aria-hidden="true">&raquo;</span></a></li>
+    {{/if}}
+
+  </ul>
+</nav>
+{{/if}}

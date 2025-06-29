@@ -1,0 +1,76 @@
+
+<form action="/istifadeci/giris" enctype="application/x-www-form-urlencoded" method="post" class="container mt-5" style="max-width: 400px;">
+        <div class="alert alert-info" role="alert">
+</div>
+{{#if warning}}
+        <div class="alert alert-info" role="alert">
+{{warning}}
+</div>
+{{/if}}
+    <h2 class="mb-4 text-center">Giriş</h2>
+
+    <div class="mb-3">
+        <label for="usernameEmail" class="form-label">İstifadəçi adı ya da Email</label>
+        <input type="text" class="form-control" value="{{usernameEmail}}" id="usernameEmail" name="usernameEmail" placeholder="İstifadəçi adı və ya email daxil edin" required>
+    </div>
+    <div class="mb-3 position-relative">
+        <label for="password" class="form-label">Şifrə</label>
+        <div class="input-group">
+            <input type="password" class="form-control" value="{{password}}" id="password" name="password" placeholder="Şifrə daxil edin" required>
+            <button class="btn btn-outline-secondary" type="button" id="togglePassword" tabindex="-1">
+                <i class="bi bi-eye" id="eyeIcon"></i>
+            </button>
+        </div>
+    </div>
+    <button type="submit" class="btn btn-primary w-100">Giriş et</button>
+    <div class="mt-3 text-center">
+        <span>Hesabın yoxdur?</span>
+        <a href="/istifadeci/qeydiyyat">Qeydiyyatdan keç</a>
+    </div>
+</form>
+<div style="height: 60px;"></div>
+<script>
+    document.querySelector('.alert').style.display = 'none';
+</script>
+
+<script>
+    const usernameEmail = document.getElementById('usernameEmail');
+    const password = document.getElementById('password');
+    const alertBox = document.querySelector('.alert');
+
+    function validateInput(input, message) {
+        if (input.value.length > 50) {
+            alertBox.textContent = message;
+            alertBox.classList.remove('alert-info');
+            alertBox.classList.add('alert-warning');
+            alertBox.style.display = 'block';
+        } else {
+            alertBox.style.display = 'none';
+        }
+    }
+
+    usernameEmail.addEventListener('blur', function() {
+        validateInput(usernameEmail, 'İstifadəçi adı ya da Email çox uzundur.');
+    });
+
+    password.addEventListener('blur', function() {
+        validateInput(password, 'Şifrə çox uzundur.');
+    });
+</script>
+<script>
+    document.getElementById('togglePassword').addEventListener('click', function () {
+        const passwordInput = document.getElementById('password');
+        const eyeIcon = document.getElementById('eyeIcon');
+        if (passwordInput.type === 'password') {
+            passwordInput.type = 'text';
+            eyeIcon.classList.remove('bi-eye');
+            eyeIcon.classList.add('bi-eye-slash');
+        } else {
+            passwordInput.type = 'password';
+            eyeIcon.classList.remove('bi-eye-slash');
+            eyeIcon.classList.add('bi-eye');
+        }
+    });
+</script>
+
+<!-- Make sure to include Bootstrap CSS and Bootstrap Icons in your layout -->

@@ -1,0 +1,71 @@
+<nav class="navbar shadow navbar-expand-lg navbar-dark bg-dark py-3 fixed-top">
+  <div class="container-fluid">
+    <a class="navbar-brand brand-outline fw-bold" href="/">Torrent<span class="text-secondary">Oyun</span>Yukle</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link" aria-current="page" href="/">Əsas səhifə</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/nece-yukleyek">Necə Yükləyək?</a>
+        </li>
+        {{#if admin}}
+        <li class="nav-item">
+          <a class="nav-link" href="/admin">Admin Panel</a>
+        </li>
+        {{/if}}
+      </ul>
+
+      <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+              <form action="/axtar" method="get" class="d-flex">
+        <input {{#if search}}value="{{search}}"{{/if}} class="form-control search-bar me-2" name="oyun" type="search" placeholder="Oyun axtar" aria-label="Search">
+       <button class="btn btn-outline-primary search-button" type="submit">Axtar</button>
+      </form>
+          <span class="mx-2"></span>
+
+        {{#if user}}
+        <li class="nav-item dropdown-menu-dark bg-dark dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            {{#if user.pp}}
+            <img src="{{user.pp}}" alt="Profil şəkli" class="rounded-circle me-2" width="32" height="32" style="object-fit: cover;">
+            {{else}}
+            <i class="bi bi-person"></i>
+            {{/if}}
+            
+            
+            {{user.username}}
+          </a>
+          <ul class="dropdown-menu bg-dark dropdown-menu-end" aria-labelledby="navbarDropdown">
+            <li><a class="dropdown-item" href="/istifadeci/profil"><i class="bi bi-person-circle"></i> Profil</a></li>
+            <li><a class="dropdown-item" href="/istifadeci/yadda-saxlanilan-oyunlar"><i class="bi bi-bookmarks"></i> Yadda Saxlanılan Oyunlar</a></li>
+            <li><a class="dropdown-item" href="/istifadeci/deyerlendirmeler"><i class="bi bi-star-fill star" style="font-size: 1rem; cursor: pointer;"></i> Dəyərləndirmələr</a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item" href="/istifadeci/cixis"><i class="bi bi-box-arrow-right"></i> Çıxış</a></li>
+          </ul>
+        </li>
+        {{else}}
+                <li class="nav-item">
+          <a class="nav-link" href="/istifadeci/giris">
+          <i class="bi bi-box-arrow-in-right"></i> Giriş
+          
+          </a>
+        </li>
+
+          <span class="mx-1"></span>
+                          <li class="nav-item">
+          <a class="nav-link" href="/istifadeci/qeydiyyat">
+          <i class="bi bi-person-add"></i> Qeydiyyat
+
+          
+          </a>
+        </li>
+          
+
+        {{/if}}
+      </ul>
+    </div>
+  </div>
+</nav>

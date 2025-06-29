@@ -1,0 +1,191 @@
+<nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+  <ul class="navbar-nav">
+    <li class="nav-item">
+      <a class="nav-link active" href="/istifadeci/profil"><i class="bi bi-person-circle"></i> Profil Seçimləri</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="/istifadeci/yadda-saxlanilan-oyunlar"><i class="bi bi-bookmarks"></i> Yadda Saxlanılan Oyunlar</a>
+
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="/istifadeci/deyerlendirmeler"><i class="bi bi-star-fill star" style="font-size: 1rem; cursor: pointer;" data-value="2" aria-label="2 ulduz"></i> Dəyərləndirmələr</a>
+    </li>
+  </ul>
+</nav>
+
+<div class="row">
+  <div class="col-12">
+      <div class="card text-white bg-dark mb-3 border-primary">
+
+<div class="row">
+    <div class="col-2">
+{{#if user.pp}}
+
+<img src="{{user.pp}}" class="img-fluid pp rounded-circle p-2" alt="Profil şəkli">
+
+{{else}}
+        
+{{/if}}
+    
+    </div>
+    <div style="margin-top: 10px;" class="col-lg-3 col-12">
+        <form action="/istifadeci/pp" class="p-2"  method="POST" enctype="multipart/form-data">
+            <div class="mb-3">
+  <label for="fileUpload" class="custom-file-label">🖼️ Fayl Yüklə</label>
+  <input name="pp" type="file" id="fileUpload" class="custom-file-input">
+  <span id="fileName">Şəkil seçilməyib</span>
+            </div>
+            <button type="submit" class="btn btn-primary">Göndər</button>
+        </form>
+    </div>
+    <div class="col-lg-6 col-12" style="margin-top: 10x;">
+    <form class="p-3">
+        <div class="mb-3">
+            <label for="username" class="form-label text-light">İstifadəçi adı</label>
+            <input type="text" id="username" class="form-control bg-dark text-light" value="{{user.username}}" disabled>
+        </div>
+        <div class="mb-3">
+            <label for="email" class="form-label text-light">Email</label>
+            <input type="email" id="email" class="form-control bg-dark text-light" value="{{user.email}}" disabled>
+        </div>
+        <hr>
+    </form>
+    
+
+        <div class="alert alert-info" role="alert">
+</div>
+{{#if warning}}
+<div class="alert alert-warning" role="alert">
+{{warning}}
+</div>
+{{/if}}
+    <form action="/istifadeci/sifre" method="POST" class="bg-dark p-3 ">
+        <div class="mb-3 position-relative">
+            <label for="oldPassword" class="form-label text-light">Köhnə Şifrə</label>
+            <input type="password" id="oldPassword" name="oldPassword" class="form-control bg-dark text-light pr-5" required>
+            <span class="position-absolute" style="top: 38px; right: 15px; cursor: pointer;" onclick="togglePassword('oldPassword', this)">
+                <i class="bi bi-eye-slash" id="toggleOldPassword"></i>
+            </span>
+        </div>
+        <div class="mb-3 position-relative">
+            <label for="newPassword" class="form-label text-light">Yeni Şifrə</label>
+            <input type="password" id="newPassword" name="newPassword" class="form-control bg-dark text-light pr-5" required>
+            <span class="position-absolute" style="top: 38px; right: 15px; cursor: pointer;" onclick="togglePassword('newPassword', this)">
+                <i class="bi bi-eye-slash" id="toggleNewPassword"></i>
+            </span>
+        </div>
+        <button type="submit" class="btn btn-primary">Şifrəni Yenilə</button>
+    </form>
+        
+    </div>
+</div>
+
+<script>
+function togglePassword(inputId, el) {
+    const input = document.getElementById(inputId);
+    const icon = el.querySelector('i');
+    if (input.type === "password") {
+        input.type = "text";
+        icon.classList.remove("bi-eye-slash");
+        icon.classList.add("bi-eye");
+    } else {
+        input.type = "password";
+        icon.classList.remove("bi-eye");
+        icon.classList.add("bi-eye-slash");
+    }
+}
+</script>
+
+      </div>
+      </div>
+</div>
+
+
+
+<style>
+.custom-file-input {
+    display: none;
+}
+
+.custom-file-label {
+    background-color: #212529; /* Darker Bootstrap background */
+    color: #ffffff;
+    padding: 0.5rem 1rem;
+    border-radius: 0.375rem;
+    border: 1px solid #6c757d;
+    cursor: pointer;
+    display: inline-block;
+    transition: background-color 0.2s;
+}
+
+.custom-file-label:hover {
+    background-color: #343a40;
+}
+
+#fileName {
+    color: #f8f9fa;
+    margin-left: 10px;
+}
+</style>
+
+<!-- JavaScript to show selected filename -->
+<script>
+document.getElementById("fileUpload").addEventListener("change", function() {
+    const fileName = this.files[0]?.name || "No file chosen";
+    document.getElementById("fileName").textContent = fileName;
+});
+</script>
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    const alertInfo = document.querySelector('.alert.alert-info');
+    if (alertInfo) {
+        alertInfo.style.display = 'none';
+    }
+});
+</script>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    const form = document.querySelector('form[action="/istifadeci/sifre"]');
+    const alertBox = document.querySelector('.alert.alert-info');
+    const oldPasswordInput = document.getElementById('oldPassword');
+    const newPasswordInput = document.getElementById('newPassword');
+
+    function validate(showAlert) {
+        const oldPassword = oldPasswordInput.value;
+        const newPassword = newPasswordInput.value;
+
+        let warnings = [];
+        if (oldPassword.length > 50 || newPassword.length > 50) {
+            warnings.push("Şifrə çox uzundur.");
+        }
+        if (typeof oldPassword !== "string" || typeof newPassword !== "string") {
+            warnings.push("Daxil edilən məlumatlar yanlışdır.");
+        }
+        if (oldPassword && oldPassword.length < 6) {
+            warnings.push("Köhnə şifrə ən azı 6 simvol olmalıdır.");
+        }
+        if (newPassword && newPassword.length < 6) {
+            warnings.push("Yeni şifrə ən azı 6 simvol olmalıdır.");
+        }
+
+        if (warnings.length > 0 && showAlert) {
+            alertBox.innerHTML = warnings.join('<br>');
+            alertBox.style.display = 'block';
+        } else if (warnings.length === 0) {
+            alertBox.style.display = 'none';
+        }
+
+        return warnings.length === 0;
+    }
+
+    oldPasswordInput.addEventListener('blur', function() { validate(true); });
+    newPasswordInput.addEventListener('blur', function() { validate(true); });
+
+    form.addEventListener('submit', function (e) {
+        if (!validate(true)) {
+            e.preventDefault();
+        }
+    });
+});
+</script>

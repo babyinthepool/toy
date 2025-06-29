@@ -1,0 +1,122 @@
+<form class="container mt-5" action="/istifadeci/qeydiyyat" method="post" enctype="application/x-www-form-urlencoded" style="max-width: 400px;">
+    <div class="alert alert-info" role="alert">
+</div>
+{{#if warning}}
+    <div class="alert alert-info" role="alert">
+        {{warning}}
+</div>
+{{/if}}
+    <h2 class="mb-4 text-center">Qeydiyyat</h2>
+    <div class="mb-3">
+        <label for="email" class="form-label">Email </label>
+        <input type="email" class="form-control" value="{{email}}" id="email" name="email" required autocomplete="email">
+    </div>
+    <div class="mb-3">
+        <label for="username" class="form-label">İstifadəçi Adı</label>
+        <input type="text" class="form-control" value="{{username}}" id="username" name="username" required autocomplete="username">
+    </div>
+    <div class="mb-3">
+        <label for="password" class="form-label">Şifrə</label>
+        <div class="input-group">
+            <input type="password" value="{{password}}" class="form-control" id="password" name="password" required autocomplete="new-password">
+            <button class="btn btn-outline-secondary" type="button" id="togglePassword" tabindex="-1">
+                <i class="bi bi-eye" id="eyeIcon"></i>
+            </button>
+        </div>
+    </div>
+    <button type="submit" id="formSubmit" class="btn btn-primary w-100">Qeydiyyatdan Keç</button>
+</form>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const passwordInput = document.getElementById('password');
+        const togglePassword = document.getElementById('togglePassword');
+        const eyeIcon = document.getElementById('eyeIcon');
+
+        togglePassword.addEventListener('click', function () {
+            const type = passwordInput.type === 'password' ? 'text' : 'password';
+            passwordInput.type = type;
+            eyeIcon.classList.toggle('bi-eye');
+            eyeIcon.classList.toggle('bi-eye-slash');
+        });
+    });
+</script>
+
+<div class="text-center mt-3">
+    <span>Hal-hazırda hesabın var?</span>
+    <a href="/istifadeci/giris">Giriş et</a>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const alertBox = document.querySelector('.alert');
+        alertBox.style.display = 'none';
+    });
+</script>
+<script>
+    
+    document.addEventListener('DOMContentLoaded', function () {
+        const form = document.querySelector('form');
+        const alertBox = document.querySelector('.alert');
+        const emailInput = document.getElementById('email');
+        const usernameInput = document.getElementById('username');
+        const passwordInput = document.getElementById('password');
+
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+        function validate(showAlert) {
+            const email = emailInput.value.trim();
+            const username = usernameInput.value.trim();
+            const password = passwordInput.value;
+
+            let warnings = [];
+            if (email.length > 100 || username.length > 50 || password.length > 50) {
+                warnings.push("Sahələr çox uzundur.");
+            }
+            if (typeof email !== "string" || typeof username !== "string" || typeof password !== "string") {
+                warnings.push("Daxil edilən məlumatlar yanlışdır.");
+            }
+            if (username && !/^[a-z0-9]+$/.test(username)) {
+                warnings.push("İstifadəçi adında yalnız latın kiçik hərfləri və rəqəmlər ola bilər.");
+            }
+            if (email && !emailRegex.test(email)) {
+                warnings.push("Email formatı yanlışdır.");
+            }
+
+            if (username && username.length < 4) {
+                warnings.push("İstifadəçi adı ən azı 4 simvol olmalıdır.");
+            }
+            if (password && password.length < 6) {
+                warnings.push("Şifrə ən azı 6 simvol olmalıdır.");
+            }
+
+            if (warnings.length > 0 && showAlert) {
+                alertBox.innerHTML = warnings.join('<br>');
+                alertBox.style.display = 'block';
+            } else if (warnings.length === 0) {
+                alertBox.style.display = 'none';
+            }
+
+            return warnings.length === 0;
+        }
+
+        emailInput.addEventListener('blur', function() { validate(true); });
+        usernameInput.addEventListener('blur', function() { validate(true); });
+        passwordInput.addEventListener('blur', function() { validate(true); });
+
+        form.addEventListener('submit', function (e) {
+            if (!validate(true)) {
+                e.preventDefault();
+            }
+        });
+    });
+</script>
+
+
+<div style="height: 60px;"></div>
+
+<!-- Bootstrap 5 and Bootstrap Icons required -->
+<!--
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+-->

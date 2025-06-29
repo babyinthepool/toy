@@ -1,0 +1,145 @@
+<div class="row">
+
+
+
+  <div class="col-12 col-lg-9">
+      <div class="card text-white bg-dark mb-3 border-primary">
+      <div style="height: 50px" class="card-header border-primary lexend-deca-title fw-bold">
+        
+        
+        <div class="position-relative">
+  <div class="position-absolute top-0 start-0">Oyunları necə yükləyək?</div>
+  <div class="position-absolute top-0 end-0"><a class="no-underline text-white go-red" href="/">Əsas</a> <span aria-hidden="true">&raquo;</span><span class="no-underline text-white" href="/oyunlar"> Dəstək</span></div>
+
+</div>
+        
+        </div>
+      <div class="card-body">
+
+<div class="card-text">
+<h4> <i class="bi bi-question-circle"></i> Hansı proqramlara ehtiyacınız var?</h4>
+<p>Birbaşa linklərdən yüklədikdə heç bir proqram lazım deyil. Part-part verilən oyunlar üçün isə bütün partları eyni qovluqa qoyub quraşdıra bilersiz.</p>
+<p><strong>Torrent linki</strong> ilə yüklədikdə Torrent proqramı lazımdır. Ən çox istifadə edilənlərdən biri uTorrentdi. <br>
+<a href="https://www.utorrent.com/intl/tr/web/#comparison-panels" target="_blank">
+ uTorrent yüklə
+</a>
+</p> 
+<p>
+<img src="https://i.imgur.com/MKT5o1N.png" class="img-fluid" alt="uTorrent nece yuklemek">
+
+</p>
+
+<h4> <i class="bi bi-question-circle"></i> Torrent linkləri necə yükləyək?</h4>
+<p>Torrent Yükləməyə basdıqda uTorrenti yükləmisizsə bildiriş gələcək. Burdan <strong>Open uTorrent Web</strong>-ə basacıyıq.</p>
+<p>
+    <img src="https://i.imgur.com/F64IT4u.png" class="img-fluid" alt="uTorrent nece yuklemek">
+
+</p>
+
+<p>Aşağıdaki ekran gələcək.Burda <strong>Add</strong> etdikdə. Yükləməyə başlayacaq. Yükləmə bitdikdə quraşdırma(setup.exe, install.exe və s.) varsa, quraşdırmaq bəsdir. Bu qədər.</p>
+<p>
+    <img src="https://i.imgur.com/Z2afezX.png" class="img-fluid" alt="uTorrent nece yuklemek">
+
+</p>
+
+
+<h4> <i class="bi bi-question-circle"></i> Virus var?</h4>
+<p>Yox, heç bir viruslu mənbə yoxdur saytda.</p>
+
+
+
+
+</div>
+
+
+        </div>
+        
+    </div>
+    </div>
+  <div class="col-lg-3">
+    
+    <div class="row">
+      <div class="col-lg-12">
+  {{>discord}}
+</div>
+      <div class="col-lg-12">
+  {{>oyunIstek}}
+</div>
+<div class="col-lg-12">
+  {{>categories}}
+</div>
+
+    </div>
+
+ 
+</div>
+</div>
+
+
+
+<style>
+  .lower{
+    margin-top: 15px;
+  }
+</style>
+
+
+
+    <script>
+        // Değişim sözlüğü
+        const replacements = {
+            "populyar": "Populyar",
+            "aciq-dunya": "Açıq Dünya",
+            "aksiyon": "Aksiyon",
+            "macera": "Macəra",
+            "fps": "FPS",
+            "sag-qalma": "Sağ Qalma",
+            "idman  ": "İdman",
+            "yaris": "Yarış",
+            "strategiya": "Strategiya",
+            "simulasiya": "Simulasiya",
+            "doyus": "Döyüş",
+            "qorxu": "Qorxu",
+            "platform": "Platform",
+            "erken-giris": "Erkən Giriş",
+            "vr": "VR",
+            "rpg": "RPG",
+            "dlc": "DLC"
+        };
+
+        // Tüm hedef metinleri seç
+        document.querySelectorAll('.target-text').forEach(el => {
+            let text = el.textContent;
+            // Her bir kelimeyi kontrol edip değiştir
+            for (let [key, value] of Object.entries(replacements)) {
+                const regex = new RegExp(`\\b${key}\\b`, 'gi'); // Tam kelime eşleşmesi için
+                text = text.replace(regex, value);
+            }
+            el.textContent = text;
+        });
+    </script>
+
+    <script>
+        // Değişim sözlüğü
+        const replacementsDate = {
+            "just now": "indicə",
+            "minutes ago": "dəqiqə əvvəl",
+            "hours ago": "saat əvvəl",
+            "day ago": "gün əvvəl",
+            "months":"ay",
+            "years":"il",
+            "month":"ay",
+            "year":"il"
+        };
+
+        // Tüm hedef metinleri seç
+        document.querySelectorAll('.target-date').forEach(el => {
+            let text = el.textContent;
+            // Her bir kelimeyi kontrol edip değiştir
+            for (let [key, value] of Object.entries(replacementsDate)) {
+                const regex = new RegExp(`\\b${key}\\b`, 'gi'); // Tam kelime eşleşmesi için
+                text = text.replace(regex, value);
+            }
+            el.textContent = text;
+        });
+    </script>

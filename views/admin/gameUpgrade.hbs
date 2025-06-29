@@ -1,0 +1,87 @@
+  <link rel="stylesheet" href="../../../css/main.css">
+
+
+<h1><a href="/admin/game/update" rel="nofollow noreferer"><button type="button" style="margin-bottom: 5px;" class="btn btn-success"><i class="bi bi-arrow-left-circle-fill"></i></button></a> Güncəlləmələr - <span class="text-info">{{game.name}}</span></h1>
+
+
+
+<table style="margin-top: 10px;" class="table table-dark table-striped table-hover">
+  <thead>
+    <tr>
+      <th scope="col">Ad</th>
+      <th scope="col">Link</th>
+      <th scope="col">Dəyişiklik Et</th>
+      <th scope="col">Sil</th>
+
+    </tr>
+  </thead>
+  <tbody>
+
+    
+    {{#each game.upgrades}}
+
+
+
+    <tr>
+
+      <td>{{this.title}}</td>
+
+      <td>        <a class="gameLink" href="{{this.link}}">{{this.link}}</a></td>
+    
+   <td> <a href="/admin/game/upgrade/{{../game._id}}/{{this._id}}"   class="btn btn-success">Dəyişiklik Et</a></td>
+   <td> <a href="/admin/game/upgrade/delete/{{../game._id}}/{{this._id}}"   class="btn btn-primary">Sil</a></td>
+    
+
+    </tr>
+
+
+
+{{/each}}
+
+    
+
+  </tbody>
+</table>
+
+<br>
+
+<h1>Güncəlləmə Əlavə Et</h1>
+<form action="/admin/game/upgrade/add/{{game._id}}" method="post" enctype="application/x-www-form-urlencoded">
+ <div class="row">
+  <div class="col-12">
+        <label for="title" class="col col-form-label text-info fw-bold">Ad:</label>
+    <input class="form-control" id="title" name="title" type="text" placeholder="Güncəlləmə adını daxil edin(UPDATE 1, UPDATE 2,YAMA 1, YAMA 2 və s.)" aria-label="title">
+
+  </div>
+  <div class="col-12">
+            <label for="link" class="fw-bold text-info col-form-label">Link:</label>
+    <input class="form-control" id="link" name="link" type="text" placeholder="Güncəlləmənin yükləmə linkinin daxil edin" aria-label="link">
+
+  </div>
+
+    <div class="col-12">
+        <label for="summary" class="col col-form-label text-info fw-bold">Açıqlama:</label>
+
+      <textarea placeholder="Qısa izah" class="form-control" name="summary" id="summary" rows="7"></textarea>
+  </div>
+
+<div class="col-12">
+<br>
+ 
+ <div class="position-relative">
+
+  <button type="submit" class="btn btn-success text-white btn-lg fw-bold lower">Əlavə Et</button>
+</div>
+ 
+</div>
+ 
+
+
+ </div>
+     <script>
+        document.querySelectorAll('.gameLink').forEach(el => {
+            if (el.textContent.length > 30) {
+                el.textContent = el.textContent.slice(0, 30) + '...';
+            }
+        });
+    </script>

@@ -1,0 +1,61 @@
+<h1><a href="/admin" rel="nofollow noreferer"><button type="button" style="margin-bottom: 5px;" class="btn btn-success"><i class="bi bi-arrow-left-circle-fill"></i></button></a> Index Əlavə Et</h1>
+<form action="/admin/add-index" method="post" enctype="application/x-www-form-urlencoded">
+ <div class="row">
+  <div class="col-12">
+        <label for="url" class="col col-form-label text-info fw-bold">Url:</label>
+    <input class="form-control" id="url" value="{{upgrade.title}}" name="url" type="text" placeholder="url" aria-label="url">
+
+  </div>
+  <div class="col-12">
+            <label for="changefreq" class="fw-bold text-info col-form-label">Change Freq:</label>
+<select class="form-control" name="changefreq" id="changefreq">
+  <option value="always">always</option>
+  <option value="daily">daily</option>
+  <option value="weekly">weekly</option>
+  <option value="monthly">monthly</option>
+  <option value="yearly">yearly</option>
+    <option value="never">never</option>
+
+</select>
+
+
+  </div>
+
+    <div class="col-12">
+
+        <label for="priority" class="col col-form-label text-info fw-bold">Priority (0 to 1):</label>
+
+    <input class="form-control" 
+      type="number" 
+  id="priority" 
+  name="priority" 
+  min="0" 
+  max="1" 
+  step="0.01" 
+  value="0.5" 
+    >
+
+
+  </div>
+
+
+<div class="col-12">
+ <div class="position-relative">
+
+  <button type="submit" style="margin-top: 15px;" class="btn btn-success text-white btn-lg fw-bold lower">İndekslə</button>
+</div>
+ 
+</div>
+
+ 
+
+
+ </div>
+
+ 
+ 
+
+ 
+
+
+</form>

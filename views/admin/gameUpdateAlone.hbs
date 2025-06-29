@@ -1,0 +1,153 @@
+  <link rel="stylesheet" href="../../../css/main.css">
+
+
+
+
+<h1><a href="/admin/game/update" rel="nofollow noreferer"><button type="button" style="margin-bottom: 5px;" class="btn btn-success"><i class="bi bi-arrow-left-circle-fill"></i></button></a> Oyun Güncəllə - <span class="text-info">{{game.name}}</span></h1>
+<form action="/admin/game/update/{{game._id}}" method="post" enctype="application/x-www-form-urlencoded">
+ <div class="row">
+  <div class="col-lg-4 col-6">
+        <label for="name" class="col col-form-label text-info fw-bold">Ad:</label>
+    <input class="form-control" value="{{game.name}}" id="name" name="name" type="text" placeholder="Oyunun adını daxil edin" aria-label="name">
+
+  </div>
+  <div class="col-lg-4 col-6">
+            <label for="category" class="fw-bold text-info col-form-label">Kateqoriyalar:</label>
+    <input oninput="this.value = this.value.replace(/\s+/g, '').toLowerCase();" class="form-control" id="category" value="{{game.category}}" name="category" type="text" placeholder="Oyunun kateqoriyalarını daxil edin" aria-label="category">
+
+  </div>
+    <div class="col-lg-4 col-12">
+        <label for="gameOutDate" class="fw-bold text-info col-form-label">Çıxış tarixi:</label>
+<input id="gameOutDate" name="gameOutDate" value="{{game.gameOutDate}}" class="form-control" type="date" />
+
+  </div>
+    <div class="col-lg-6 col-12">
+        <label for="summary" class="col col-form-label text-info fw-bold">Açıqlama:</label>
+
+      <textarea placeholder="Qısa izah" class="form-control" name="summary" id="summary" rows="7">{{game.summary}}</textarea>
+  </div>
+      <div class="col-lg-6 col-12">
+            <label for="system" class="col col-form-label text-info fw-bold" >Minimum sistem:</label>
+
+      <textarea placeholder="Normal oynanış üçün minimum sistem göstəriciləri" class="form-control" name="system" id="system" rows="7">{{game.system}}</textarea>
+  </div>
+
+  <div class="col-12 col-lg-6">
+
+      <label for="size" class="col col-form-label text-info fw-bold">Yaddaş həcmi:</label>
+      <div class="input-group mb-2">
+        <div class="input-group-prepend">
+          <div class="input-group-text bg-dark">GB</div>
+        </div>
+        <input type="number" class="form-control" value="{{game.size}}" id="size" name="size">
+      </div>  
+  
+  </div>
+
+
+<div class="col-12 col-lg-12">
+  <h4>Linklər</h4>
+</div>
+      <div class="col-lg-6 col-12">
+    <label for="cover" class="col col-form-label text-info fw-bold">Poster:</label>
+    <input class="form-control" id="cover" value="{{game.cover}}" name="cover" type="text" placeholder="Poster rəsmi (9x16)" aria-label="cover">
+
+  </div>
+        <div class="col-lg-6 col-12">
+       <label for="gameplayEmbed" class="col col-form-label text-info fw-bold">Oynanış Videosu:</label>
+    <input class="form-control" id="gameplayEmbed" value="{{game.gameplayEmbed}}" name="gameplayEmbed" type="text" placeholder="YouTubedan oyunun oynanış linki (embed, 16x9)" aria-label="gameplayEmbed">
+
+  </div>
+  <div class="col-lg-12 col-12">
+             <label for="images" class="col col-form-label text-info fw-bold" >Rəsimlər:</label>
+
+      <textarea placeholder="Oyun içi rəsimlər. Vergüllə boşluq qoymadan ayırın. (Tövsiyə:4 ədəd)" class="form-control" name="images" id="images" rows="3">{{game.images}}</textarea>
+  </div>
+  <div class="col-lg-4 col-6">
+            <label for="linkTorrent" class="col col-form-label text-info fw-bold">Torrent Linki:</label>
+    <input class="form-control" id="linkTorrent" value="{{game.linkTorrent}}" name="linkTorrent" type="text" placeholder="Torrent üçün yükləmə linki" aria-label="linkTorrent">
+
+  </div>
+  <div class="col-lg-4 col-6">
+            <label for="linkDirect" class="col col-form-label text-info fw-bold">Birbaşa yükləmək linki:</label>
+    <input class="form-control" id="linkDirect" name="linkDirect" value="{{game.linkDirect}}" type="text" aria-label="linkDirect">
+
+  </div>  <div class="col-lg-4 col-6">
+                <label for="linkDirectAlternative" class="col col-form-label text-info fw-bold">Birbaşa yükləmək linki(Alt):</label>
+    <input class="form-control" value="{{game.linkDirectAlternative}}" id="linkDirectAlternative" placeholder="Alternativ" name="linkDirectAlternative" type="text" aria-label="linkDirectAlternative">
+
+  </div>
+
+
+
+
+
+
+
+ </div>
+
+
+ 
+ 
+ 
+ 
+ <div class="position-relative">
+
+  <div class="position-absolute top-0 end-0">
+  <button type="submit" class="btn btn-primary btn-lg fw-bold lower">Göndər</button>
+  </div>
+
+</div>
+ 
+
+
+</form>
+
+<div class="col-8 col-lg-6">
+  <div class="card text-white bg-dark mb-3" style=" margin-top:15px">
+  <div class="card-body"  >
+            <label  class="col col-form-label text-info fw-bold">Kateqoriya qısaltmaları</label> <br>
+    
+            populyar : Populyar <br>
+            aciq-dunya : Açıq Dünya <br>
+            aksiyon : Aksiyon <br>
+            macera : Macəra<br>
+            fps : FPS<br>
+            sag-qalma : Sağ Qalma<br>
+            idman : İdman<br>
+            yaris : Yarış<br>
+            strategiya : Strategiya<br>
+            simulasiya : Simulasiya<br>
+            doyus : Döyüş<br>
+            qorxu : Qorxu<br>
+            platform : Platform<br>
+            erken-giris : Erkən Giriş<br>
+            vr : VR<br>
+            rpg : RPG<br>
+            dlc : DLC
+  </div>
+</div>
+</div>
+
+
+<style>
+  .lower{
+    margin-top: 15px;
+  }
+</style>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

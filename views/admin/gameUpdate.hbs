@@ -1,0 +1,72 @@
+  <link rel="stylesheet" href="../../../css/main.css">
+     <h1><a href="/admin" rel="nofollow noreferer"><button type="button" style="margin-bottom: 5px;" class="btn btn-success"><i class="bi bi-arrow-left-circle-fill"></i></button></a> Oyun Güncəllə</h1>
+      <form action="/admin/game/update/search" method="get" class="d-flex">
+        <input class="form-control me-2" name="oyun" type="search" placeholder="Oyun axtar" aria-label="Search">
+        <button class="btn btn-outline-success" type="submit">Axtar</button>
+      </form>
+{{#if games.length}}
+
+
+
+<table style="margin-top: 10px;" class="table table-dark table-striped table-hover">
+  <thead>
+    <tr>
+      <th scope="col">Ad</th>
+      <th scope="col">Oyunu Sil</th>
+      <th scope="col">Güncəlləmələr</th>
+    </tr>
+  </thead>
+  <tbody>
+
+    
+    {{#each games}}
+
+
+
+    <tr>
+
+      <td><a href="/admin/game/update/{{_id}}" class="no-underline fw-bold text-white">{{name}}</a></td>
+
+      <td>        <a href="/admin/game/delete/{{_id}}"   class="btn btn-primary">Oyunu sil</a></td>
+    
+   <td> <a style="margin-left: 10px;" href="/admin/game/upgrade/{{_id}}"   class="btn btn-success">Güncəlləmələr</a></td>
+    
+
+    </tr>
+
+
+
+{{/each}}
+
+    
+
+  </tbody>
+</table>
+
+
+
+
+
+
+ 
+
+
+
+
+<ul>
+
+</ul>
+
+
+{{else}}
+<div class="alert alert-danger" style="background-color: rgb(135, 35, 65); margin-top:15px" role="alert">
+  <i class="bi bi-x"></i> Halhazırda mövcud oyun yoxdur.
+</div>
+{{/if}}
+
+
+<style>
+  ul {
+  list-style-type: none;
+}
+</style>

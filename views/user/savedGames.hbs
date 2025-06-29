@@ -1,0 +1,86 @@
+<nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+  <ul class="navbar-nav">
+    <li class="nav-item">
+      <a class="nav-link" href="/istifadeci/profil"><i class="bi bi-person-circle"></i> Profil Seçimləri</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link active" href="/istifadeci/yadda-saxlanilan-oyunlar"><i class="bi bi-bookmarks"></i> Yadda Saxlanılan Oyunlar</a>
+    </li>
+    <li class="nav-item">
+            <a class="nav-link" href="/istifadeci/deyerlendirmeler"><i class="bi bi-star-fill star" style="font-size: 1rem; cursor: pointer;" data-value="2" aria-label="2 ulduz"></i> Dəyərləndirmələr</a>
+
+    </li>
+  </ul>
+</nav>
+{{#if games.length}}
+<div class="row">
+  {{#each games}}
+          <div style="margin-top: 10px;" class="col-6 col-lg-2">
+
+
+
+
+            <div
+              class="card border-secondary text-center bg-warning lato-regular"
+            >
+            <a href="/{{urlTitle}}">
+              <img
+              
+                src="{{cover}}"
+                class="card-img-top game-cover"
+                alt="{{name}},{{category}}"
+              height="280px"
+                width="270px"
+              />
+              </a>
+               <div class="gameTitle">{{name}}</div>
+            </div>
+          </div>
+          {{/each}}
+</div>
+{{else}}
+<div class="row">
+  <div class="col-12">
+    <div class="card text-white bg-dark mb-3 border-primary">
+      <div class="card-body">
+        <h5 class="card-title
+  lexend-deca-title fw-bold">Yadda Saxlanılan Oyunlar</h5>
+        <p class="card-text">Yadda saxlanılan oyunlarınızı burada görə bilərsiniz.</p>
+      </div>
+    </div>
+  </div>
+</div>
+{{/if}}
+
+{{#if currentPage}}
+
+<nav style="margin-top:10px" aria-label="pagination">
+  <ul class="pagination justify-content-center">
+    {{#if hasPrevPage}}
+      <li class="page-item"><a
+          class="page-link"
+          href="/istifadeci/yadda-saxlanilan-oyunlar?page={{prevPage}}"
+        ><span aria-hidden="true">&laquo;</span></a></li>
+    {{/if}}
+
+    <li class="page-item"><a class="page-link" style="background:rgb(225, 117, 100);color:white"><span class="fw-bold">{{currentPage}}</span>
+        /
+        {{totalPages}}</a></li>
+    {{#if hasNextPage}}
+      <li class="page-item"><a
+          class="page-link"
+          href="/istifadeci/yadda-saxlanilan-oyunlar?page={{nextPage}}"
+        ><span aria-hidden="true">&raquo;</span></a></li>
+    {{/if}}
+
+  </ul>
+</nav>
+{{/if}}
+
+    <script>
+        document.querySelectorAll('.gameTitle').forEach(el => {
+            if (el.textContent.length > 23) {
+                el.textContent = el.textContent.slice(0, 23) + '...';
+            }
+        });
+    </script>

@@ -1,0 +1,414 @@
+<h1><a href="/admin/" rel="nofollow noreferer"><button type="button" style="margin-bottom: 5px;" class="btn btn-success"><i class="bi bi-arrow-left-circle-fill"></i></button></a> Oyun Yüklə 
+<button class="btn btn-primary" id="ai-fill-texts-button" > AI ilə doldur </button>
+</h1>
+<form action="/admin/game/upload" method="post" enctype="application/x-www-form-urlencoded">
+ <div class="row">
+  <div class="col-lg-4 col-6">
+        <label for="name" class="col col-form-label text-info fw-bold">Ad:</label>
+    <input class="form-control" id="name" name="name" type="text" placeholder="Oyunun adını daxil edin" aria-label="name">
+
+  </div>
+  <div class="col-lg-4 col-6">
+            <label for="category" class="fw-bold text-info col-form-label">Kateqoriyalar:</label>
+            <input class="form-control" id="category" name="category" type="text" placeholder="Oyunun kateqoriyalarını daxil edin" aria-label="category" oninput="this.value = this.value.replace(/\s+/g, '').toLowerCase();">
+
+  </div>
+    <div class="col-lg-4 col-12">
+        <label for="gameOutDate" class="fw-bold text-info col-form-label">Çıxış tarixi:</label>
+<input id="gameOutDate" name="gameOutDate" class="form-control" type="date" />
+
+  </div>
+    <div class="col-lg-6 col-12">
+        <label for="summary" class="col col-form-label text-info fw-bold">Açıqlama:</label>
+
+      <textarea placeholder="Qısa izah" class="form-control" name="summary" id="summary" rows="7"></textarea>
+  </div>
+      <div class="col-lg-6 col-12">
+            <label for="system" class="col col-form-label text-info fw-bold" >Minimum sistem:</label>
+
+      <textarea placeholder="Normal oynanış üçün minimum sistem göstəriciləri" class="form-control" name="system" id="system" rows="7"></textarea>
+  </div>
+
+  <div class="col-12 col-lg-6">
+
+      <label for="size" class="col col-form-label text-info fw-bold">Yaddaş həcmi:</label>
+      <div class="input-group mb-2">
+        <div class="input-group-prepend">
+          <div class="input-group-text bg-dark">GB</div>
+        </div>
+        <input type="number" class="form-control" id="size" name="size">
+      </div>  
+  
+  </div>
+
+
+<div class="col-12 col-lg-12">
+  <h4>Linklər 
+    <input type="number" class="form-control d-inline-block w-25 me-2" id="steamId" name="steamId" placeholder="Steam ID-ni daxil edin" aria-label="steamId">
+ <button class="btn btn-primary" type="button" id="ai-fill-links-button">Linkləri Doldur</button></h4>
+</div>
+      <div class="col-lg-6 col-12">
+    <label for="cover" class="col col-form-label text-info fw-bold">Poster:</label>
+    <input class="form-control" id="cover" name="cover" type="text" placeholder="Poster rəsmi (9x16)" aria-label="cover">
+
+  </div>
+        <div class="col-lg-6 col-12">
+       <label for="gameplayEmbed" class="col col-form-label text-info fw-bold">Oynanış Videosu:</label>
+    <input class="form-control" id="gameplayEmbed" name="gameplayEmbed" type="text" placeholder="YouTubedan oyunun oynanış linki (embed, 16x9)" aria-label="gameplayEmbed">
+
+  </div>
+  <div class="col-lg-12 col-12">
+             <label for="images" class="col col-form-label text-info fw-bold" >Rəsimlər:</label>
+
+      <textarea placeholder="Oyun içi rəsimlər. Vergüllə boşluq qoymadan ayırın. (Tövsiyə:4 ədəd)" class="form-control" name="images" id="images" rows="6"></textarea>
+  </div>
+  <div class="col-lg-4 col-6">
+            <label for="linkTorrent" class="col col-form-label text-info fw-bold">Torrent Linki:</label>
+    <input class="form-control" id="linkTorrent" name="linkTorrent" type="text" placeholder="Torrent üçün yükləmə linki" aria-label="linkTorrent">
+    <br>
+    <span class="text-muted" id="torrentname" aria-label="torrentname" ></span>
+  </div>
+  <div class="col-lg-4 col-6">
+            <label for="linkDirect" class="col col-form-label text-info fw-bold">Birbaşa yükləmək linki:</label>
+    <input class="form-control" id="linkDirect" name="linkDirect" type="text" aria-label="linkDirect">
+    <span><a target="_blank" id="directLinkGload">gload.to</a></span> <br>
+
+    <span><a target="_blank" id="directLinkAtopgames">atopgames.com</a></span> <br>
+    <span><a target="_blank" id="directLinkGamesForYou">games4u.com</a></span>
+
+  </div>  <div class="col-lg-4 col-6">
+                <label for="linkDirectAlternative" class="col col-form-label text-info fw-bold">Birbaşa yükləmək linki(Alt):</label>
+    <input class="form-control" id="linkDirectAlternative" placeholder="Alternativ" name="linkDirectAlternative" type="text" aria-label="linkDirectAlternative">
+
+  </div>
+
+
+
+
+
+
+
+ </div>
+
+
+ 
+ 
+ 
+ 
+ <div class="position-relative">
+
+  <div class="position-absolute top-0 end-0">
+  <button type="submit" class="btn btn-primary btn-lg fw-bold lower">Göndər</button>
+  </div>
+
+</div>
+ 
+
+
+</form>
+
+
+
+<style>
+  .lower{
+    margin-top: 15px;
+  }
+</style>
+
+
+    <script src="https://js.puter.com/v2/"></script>
+    <script>
+
+    document.getElementById('ai-fill-texts-button').addEventListener('click', async function (e) {
+        e.preventDefault();
+
+        // Get Steam AppID from game name and fill steamId input only
+        try {
+            const nameValue = document.getElementById('name').value;
+            // Update GLOAD.TO link with the game name as search query
+            const gloadLink = document.getElementById('directLinkGload');
+            if (gloadLink && nameValue) {
+                const search = encodeURIComponent(nameValue.replace(/\s+/g, '+'));
+                gloadLink.href = `https://gload.to/?s=${search}`;
+            }
+
+            if (nameValue) {
+            const res = await fetch(`/admin/api/get-appid?name=${encodeURIComponent(nameValue)}`);
+            if (res.ok) {
+                const appidData = await res.json();
+                if (appidData && appidData.appid) {
+                document.getElementById('steamId').value = appidData.appid;
+                }
+            }
+
+            const atopgamesLink = document.getElementById('directLinkAtopgames');
+            if (atopgamesLink && nameValue) {
+                const search = encodeURIComponent(nameValue.replace(/\s+/g, '+'));
+                atopgamesLink.href = `https://atopgames.com/?s=${search}`;
+            }
+            }
+
+            const gamesForYouLink = document.getElementById('directLinkGamesForYou');
+            if (gamesForYouLink && nameValue) {
+                const search = encodeURIComponent(nameValue.replace(/\s+/g, '+'));
+                gamesForYouLink.href = `https://games4u.org/?s=${search}`;
+            }
+        } catch (err) {
+            console.error('AppID fetch error:', err);
+        }
+
+
+        const name = document.getElementById('name').value;
+        if (!name) {
+            alert('Oyunun adını daxil edin.');
+            return;
+        }
+        const prompt = `
+        
+        ${name} Haqqında bir qısa abzas məlumat yaz. Aşağıdakı yazdigim tipde kateqoriyaları yaz. aralarına vergül qoy və vergüldən sonra boşluq qoyma. Kateqoriyaların adlarını mənim yazdığım kimi qısaltmalarla yaz. Oyunun çıxış gününü(gameOutDate) qeyd elə. Oyunun yaddaş həcmini (size) qeyd elə.
+populyar : Populyar
+aciq-dunya : Açıq Dünya
+aksiyon : Aksiyon
+macera : Macəra
+fps : FPS
+sag-qalma : Sağ Qalma
+idman : İdman
+yaris : Yarış
+strategiya : Strategiya
+simulasiya : Simulasiya
+doyus : Döyüş
+qorxu : Qorxu
+platform : Platform
+erken-giris : Erkən Giriş
+vr : VR
+rpg : RPG
+dlc : DLC
+
+və aşağıda yazdığım nümunədəki kimi oyunun minimum sistem qrafikalarını qeyd et.
+Əməliyyat sistemi: 
+Prosessor: 
+Operativ yaddaş (RAM): 
+Videokart:
+DirectX: 
+
+Format: {summary: "...", system: "...", category: "...", gameOutDate: "YYYY-DD-MM", size: "..."}`;
+        try {
+            const nameValue = document.getElementById('name').value;
+
+            const response = await puter.ai.chat(prompt);
+            const content = response.message.content;
+
+            // Try to parse as JSON, fallback to regex if needed
+            let data;
+            try {
+                data = JSON.parse(content);
+            } catch {
+                // Fallback: extract fields with regex
+                data = {};
+                const summaryMatch = content.match(/summary\s*:\s*["“]?([^"\n]+)["”]?/i);
+                const systemMatch = content.match(/system\s*:\s*["“]?([^"\n]+)["”]?/i);
+                const categoryMatch = content.match(/category\s*:\s*["“]?([^"\n]+)["”]?/i);
+                const gameOutDateMatch = content.match(/gameOutDate\s*:\s*["“]?(\d{4}-\d{2}-\d{2})["”]?/i);
+                const sizeMatch = content.match(/size\s*:\s*["“]?([^\s,"”}]+)/i);
+                if (summaryMatch) data.summary = summaryMatch[1];
+                if (systemMatch) data.system = systemMatch[1];
+                if (categoryMatch) data.category = categoryMatch[1];
+                if (gameOutDateMatch) data.gameOutDate = gameOutDateMatch[1];
+                if (sizeMatch) {
+                    // Extract only digits and possible decimal point, then convert to number
+                    const num = parseFloat(sizeMatch[1].replace(/[^\d.]/g, ''));
+                    data.size = num;
+                }
+            }
+            if (data.summary) document.getElementById('summary').value = data.summary;
+            // Kateqoriyaları hər vergüldən sonra yeni sətrə keçirt
+            if (data.system) {
+                const formattedSystem = data.system
+                    .split(',')
+                    .map(line => line.trimStart())
+                    .join('\n');
+                document.getElementById('system').value = formattedSystem;
+            }
+            if (data.category) document.getElementById('category').value = data.category;
+            if (data.gameOutDate) document.getElementById('gameOutDate').value = data.gameOutDate;
+            if (data.size) {
+                // Extract only numbers (including decimals) and convert to number
+                const num = parseFloat(String(data.size).replace(/[^\d.]/g, ''));
+                if (!isNaN(num)) document.getElementById('size').value = num;
+            }
+        } catch (err) {
+            alert('AI cavabı alınmadı: ' + err);
+        }
+    });
+
+    </script>
+
+    <script>
+var messi = {};
+        document.getElementById('ai-fill-links-button').addEventListener('click', function(e) {
+            e.preventDefault();
+            const steamId = document.getElementById('steamId').value;
+
+            if (!steamId) {
+                alert('Steam ID-ni daxil edin.');
+                return;
+            }
+            fetch(`/admin/api/steam/${steamId}`)
+                .then(response => response.json())
+                .then(data => {
+                    if (data) {
+                        const screenshots = (data[steamId].data.screenshots || []).slice(0, 6);
+                        const images = screenshots.map(s => s.path_full).join(', ');
+                        document.getElementById('images').value = images;
+                    } else {
+                        console.log('No game data found');
+                    }
+                })
+                .catch(error => {
+                    console.error('Steam API error:', error);
+                });
+
+
+                fetch(`/admin/api/cover/${steamId}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data) {
+                            document.getElementById('cover').value = data.images[0] || '';
+                        } else {
+                            console.log('No cover found');
+                        }
+                        console.log('Cover data:', data);
+                        fetch(`/admin/api/youtube?q=${encodeURIComponent(data.game_name + ' gameplay no commentary 20 minutes')}`)
+                            .then(response => response.json())
+                            .then(yt => {
+                                if (yt) {
+                                    document.getElementById('gameplayEmbed').value = yt.videoUrl;
+                                    updateCoverPreview();
+                                    updateGameplayPreview();
+                                    updateImagesPreview();
+                                }
+                            })
+                            .catch(error => {
+                                console.error('YouTube API error:', error);
+                            });
+                            // Fetch torrent link using game_name
+                            fetch(`/admin/api/get-torrent?q=${encodeURIComponent(data.game_name)}`)
+                                .then(response => response.json())
+                                .then(torrentData => {
+                                    console.log('Torrent data:', torrentData);
+                                        document.getElementById('linkTorrent').value = torrentData.result.download_link || '';
+                                        document.getElementById('torrentname').textContent = torrentData.result.name || '';
+                                })
+                                .catch(error => {
+                                    console.error('Torrent API error:', error);
+                                });
+                            
+
+                    })
+                    .catch(error => {
+                        console.error('Cover API error:', error);
+                    });
+
+
+            
+        });
+
+        
+
+    </script>
+    <div class="row mt-4">
+        <div class="col-lg-4 col-12 mb-3">
+            <label class="fw-bold text-info">Poster Önizləmə:</label>
+            <div id="cover-preview" style="background:#222;min-height:250px;display:flex;align-items:center;justify-content:center;">
+                <span class="text-muted">Poster görünəcək</span>
+            </div>
+        </div>
+        <div class="col-lg-4 col-12 mb-3">
+            <label class="fw-bold text-info">Oynanış Videosu Önizləmə:</label>
+            <div id="gameplay-preview" style="background:#222;min-height:250px;display:flex;align-items:center;justify-content:center;">
+                <span class="text-muted">YouTube embed görünəcək</span>
+            </div>
+        </div>
+        <div class="col-lg-4 col-12 mb-3">
+            <label class="fw-bold text-info">Rəsimlər Önizləmə:</label>
+            <div id="images-preview" style="background:#222;min-height:250px;display:flex;align-items:center;justify-content:flex-start;overflow-x:auto;gap:5px;padding:5px;">
+                <span class="text-muted">Rəsimlər görünəcək</span>
+            </div>
+        </div>
+    </div>
+    <script>
+    function updateCoverPreview() {
+        const url = document.getElementById('cover').value.trim();
+        const preview = document.getElementById('cover-preview');
+        preview.innerHTML = url
+            ? `<img src="${url}" alt="Poster" style="max-width:100%;max-height:240px;border-radius:8px;">`
+            : `<span class="text-muted">Poster görünəcək</span>`;
+    }
+    function updateGameplayPreview() {
+        const url = document.getElementById('gameplayEmbed').value.trim();
+        const preview = document.getElementById('gameplay-preview');
+        let embedUrl = '';
+        if (url.includes('youtube.com/embed/')) {
+            embedUrl = url;
+        } else if (url.includes('youtube.com/watch?v=')) {
+            const vid = url.split('v=')[1].split('&')[0];
+            embedUrl = `https://www.youtube.com/embed/${vid}`;
+        } else if (url.includes('youtu.be/')) {
+            const vid = url.split('youtu.be/')[1].split('?')[0];
+            embedUrl = `https://www.youtube.com/embed/${vid}`;
+        }
+        preview.innerHTML = embedUrl
+            ? `<iframe width="100%" height="240" src="${embedUrl}" frameborder="0" allowfullscreen></iframe>`
+            : `<span class="text-muted">YouTube embed görünəcək</span>`;
+    }
+    function updateImagesPreview() {
+        const val = document.getElementById('images').value.trim();
+        const preview = document.getElementById('images-preview');
+        if (!val) {
+            preview.innerHTML = `<span class="text-muted">Rəsimlər görünəcək</span>`;
+            return;
+        }
+        const urls = val.split(',').map(s => s.trim()).filter(Boolean);
+        if (urls.length === 0) {
+            preview.innerHTML = `<span class="text-muted">Rəsimlər görünəcək</span>`;
+            return;
+        }
+        preview.innerHTML = urls.map(url =>
+            `<img src="${url}" alt="Rəsim" style="max-width:80px;max-height:80px;margin-right:4px;border-radius:6px;">`
+        ).join('');
+    }
+    document.getElementById('cover').addEventListener('input', updateCoverPreview);
+    document.getElementById('gameplayEmbed').addEventListener('input', updateGameplayPreview);
+    document.getElementById('images').addEventListener('input', updateImagesPreview);
+    // Initial preview on page load
+    updateCoverPreview();
+    updateGameplayPreview();
+    updateImagesPreview();
+    </script>
+
+    
+<div class="col-8 col-lg-6">
+  <div class="card text-white bg-dark mb-3" style="max-width: 18rem; margin-top:15px">
+  <div class="card-body"  >
+            <label  class="col col-form-label text-info fw-bold">Kateqoriya qısaltmaları</label> <br>
+    
+            populyar : Populyar <br>
+            aciq-dunya : Açıq Dünya <br>
+            aksiyon : Aksiyon <br>
+            macera : Macəra<br>
+            fps : FPS<br>
+            sag-qalma : Sağ Qalma<br>
+            idman : İdman<br>
+            yaris : Yarış<br>
+            strategiya : Strategiya<br>
+            simulasiya : Simulasiya<br>
+            doyus : Döyüş<br>
+            qorxu : Qorxu<br>
+            platform : Platform<br>
+            erken-giris : Erkən Giriş<br>
+            vr : VR<br>
+            rpg : RPG<br>
+            dlc : DLC
+  </div>
+</div>
+</div>

@@ -1,0 +1,114 @@
+@import url('https://fonts.googleapis.com/css2?family=Alfa+Slab+One&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lexend+Deca:wght@100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap');
+@import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css");
+
+.go-red{
+  &:hover {
+    color: rgb(190, 49, 68)!important /* Change outline on hover */
+  }
+}
+.no-underline{
+  text-decoration: none;
+}
+
+.lato-regular {
+  font-family: "Lato", serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.game-cover{
+  outline-offset: 2px;     /* Adds space between text and outline */
+  transition: outline-color 0.3s;
+  &:hover {
+    outline-color: rgb(225, 117, 100),; /* Change outline on hover */
+    transform: scale(1.015)
+  }
+
+}
+
+.game-cover:hover {
+  -webkit-filter: brightness(90%);
+  filter: brightness(90%);
+  -webkit-transition: all 0.3s ease;
+  -moz-transition: all 0.3s ease;
+  -o-transition: all 0.3s ease;
+  -ms-transition: all 0.3s ease;
+  transition: all 0.3s ease;
+}
+.lexend-deca-title{
+  font-family: "Lexend Deca", serif;
+  font-optical-sizing: auto;
+  font-weight: 20;
+  font-style: normal;
+}
+
+.alfa-slab-one-regular {
+    font-family: "Alfa Slab One", serif;
+    font-weight: 400;
+    outline: 2px solid rgb(9, 18, 44); /* Black outline */
+    outline-offset: 2px;     /* Adds space between text and outline */
+    transition: outline-color 0.3s;
+  
+
+  &:hover {
+    outline-color: rgb(225, 117, 100),; /* Change outline on hover */
+  }
+}
+$input-color: white;
+$input-bg:                            rgb(5, 11, 28);
+.search-bar{
+  border-radius: 1.5px!important
+}
+.search-button{
+  border-radius: 1.5px!important
+}
+.nav-item{
+    transition: background-color 0.3s;
+
+
+    &:hover {
+      background-color: rgb(135, 35, 65), /* Change outline on hover */
+    }
+}
+
+
+.pagination .page-link {
+  background: rgb(9, 18, 44);
+  color: white;
+}
+
+.list-group-item:hover {
+  background-color: rgb(135, 35, 65)!important;
+  color: #0d6efd; /* Bootstrap birincil rengi */
+  transition: background-color 0.3s, color 0.3s;
+}
+
+
+/* Override the focus ring color for all form controls */
+.form-control:focus {
+  box-shadow: 0 0 0 0.2rem rgba(190, 49, 68, 0.25)!important;  /* Custom color for the focus ring */
+  border-color: rgb(135, 35, 65)!important; /* Optional: change the border color as well */
+};
+
+
+$theme-colors: (
+  "primary":    rgb(135, 35, 65),
+  "secondary": rgb(190, 49, 68),
+  "info": rgb(225, 117, 100),
+  "dark":       rgb(9, 18, 44),
+  "warning":       rgb(5, 11, 28),
+  "success": rgb(118, 184, 63),
+  "light": rgb(255, 255, 255),
+  );
+
+body {
+    padding-top: 90px; // Adjust the padding as needed
+  }
+
+
+
+
+
+  @import "../node_modules/bootstrap/scss/bootstrap";
