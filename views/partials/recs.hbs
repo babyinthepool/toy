@@ -1,4 +1,6 @@
-        <div class="card text-white bg-dark mb-3 border-primary">
+    
+    {{#unless category}}
+<div class="card text-white bg-dark mb-3 border-primary">
             <div class="row g-2">
                 {{!-- Repeat this block for each image --}}
                 <div class="col-6 col-lg-2">
@@ -71,3 +73,5 @@
                                         </div>
                                     </div>
                                 </div>
+    {{/unless}}
+        
